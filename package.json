@@ -1,8 +1,8 @@
 {
-	"name": "@sushiswap/sushi-data",
+	"name": "@aceswap/ace-data",
 	"license": "MIT",
 	"version": "1.0.26",
-	"author": "SushiSwap",
+	"author": "aceswap-dev",
 	"main": "index",
 	"scripts": {
 		"lint": "eslint .",
