@@ -2,7 +2,7 @@ const pageResults = require('graph-results-pager')
 
 const { request, gql } = require('graphql-request')
 
-const { priceUSD: sushiPriceUSD } = require('./sushi')
+const { priceUSD: acePriceUSD } = require('./ace')
 const { token: tokenInfo } = require('./exchange')
 const { ethPrice: ethPriceUSD } = require('./exchange')
 const { info: masterChefInfo } = require('./masterchef')
@@ -11,19 +11,19 @@ const { pools: chefPools } = require('./masterchef')
 
 // accessed by chainId
 const ENDPOINTS = {
-  1: 'https://api.thegraph.com/subgraphs/name/sushiswap/bentobox',
-  250: 'https://api.thegraph.com/subgraphs/name/sushiswap/fantom-bentobox',
-  56: 'https://api.thegraph.com/subgraphs/name/sushiswap/bsc-bentobox',
-  137: 'https://api.thegraph.com/subgraphs/name/sushiswap/matic-bentobox',
-  100: 'https://api.thegraph.com/subgraphs/name/sushiswap/xdai-bentobox',
+  1: 'https://api.thegraph.com/subgraphs/name/aceswap/bentobox',
+  250: 'https://api.thegraph.com/subgraphs/name/aceswap/fantom-bentobox',
+  56: 'https://api.thegraph.com/subgraphs/name/aceswap/bsc-bentobox',
+  137: 'https://api.thegraph.com/subgraphs/name/aceswap/matic-bentobox',
+  100: 'https://api.thegraph.com/subgraphs/name/aceswap/xdai-bentobox',
 }
 
 const MASTER_CONTRACT = '0x2cba6ab6574646badc84f0544d05059e57a5dc42'
 
 module.exports = {
   async clones({ masterAddress = undefined, chainId = undefined } = {}) {
-    if(!masterAddress) { throw new Error("sushi-data: Master Address undefined"); }
-    if(!chainId) { throw new Error("sushi-data: Chain Id undefined"); }
+    if(!masterAddress) { throw new Error("ace-data: Master Address undefined"); }
+    if(!chainId) { throw new Error("ace-data: Chain Id undefined"); }
 
     return pageResults({
       api: ENDPOINTS[chainId],
@@ -51,12 +51,12 @@ module.exports = {
     })
 
     let result = {}
-    result.sushiUSD = await sushiPriceUSD();
+    result.aceUSD = await acePriceUSD();
     result.ethUSD = await ethPriceUSD();
 
     let masterChef = await masterChefInfo();
     result.totalAP = masterChef.totalAllocPoint;
-    result.sushiPerBlock = masterChef.sushiPerBlock;
+    result.acePerBlock = masterChef.acePerBlock;
 
     let pools = await chefPools();
     let onsen_pools = pools.map(pool => pool.pair)
@@ -100,8 +100,8 @@ const kashiStakedInfo = {
       if (assetPool === undefined) { return }
       let stakedAmt = assetPool.slpBalance * 1e18;
       let balanceUSD = (stakedAmt * asset.derivedETH * results.ethUSD) / (10 ** result.asset.decimals);
-      let rewardPerBlock = ((1 / results.totalAP) * results.sushiPerBlock);
-      let roiPerBlock = (rewardPerBlock * results.sushiUSD) / balanceUSD;
+      let rewardPerBlock = ((1 / results.totalAP) * results.acePerBlock);
+      let roiPerBlock = (rewardPerBlock * results.aceUSD) / balanceUSD;
       let roiPerYear = roiPerBlock * 6500 * 365
 
       return {

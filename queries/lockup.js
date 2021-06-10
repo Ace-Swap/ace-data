@@ -34,10 +34,10 @@ const user = {
         'address',
         'amount',
         'rewardDebt',
-        'pool { id, balance, accSushiPerShare }',
-        'sushiAtLockup',
-        'sushiHarvestedSinceLockup',
-        'sushiLocked',
+        'pool { id, balance, accAcePerShare }',
+        'aceAtLockup',
+        'aceHarvestedSinceLockup',
+        'aceLocked',
     ],
 
     callback(results) {
@@ -49,11 +49,11 @@ const user = {
             pool: {
                 id: entry.pool.id,
                 balance: Number(entry.pool.balance),
-                accSushiPerShare: BigInt(entry.pool.accSushiPerShare)
+                accAcePerShare: BigInt(entry.pool.accAcePerShare)
             },
-            sushiAtLockup: Number(entry.sushiAtLockup),
-            sushiHarvestedSinceLockup: Number(entry.sushiHarvestedSinceLockup),
-            sushiLocked: Number(entry.sushiLocked),
+            aceAtLockup: Number(entry.aceAtLockup),
+            aceHarvestedSinceLockup: Number(entry.aceHarvestedSinceLockup),
+            aceLocked: Number(entry.aceLocked),
         }));
     }
 };
