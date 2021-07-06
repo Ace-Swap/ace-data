@@ -18,9 +18,9 @@ module.exports = {
 
     barAddress: "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
     makerAddress: "0xe11fc0b43ab98eb91e9836129d1ee7c3bc95df50",
-    chefAddress: "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd",
+    chefAddress: "0xed9a65ed27b69667cde22f1ac834ae0db9632c16",
     aceAddress: "0x550d07A5c1591331598E4e3A38a8C32d41EFc7B7",
-    factoryAddress: "0x2af68D8317770bf1365aAF245093dc8EA2817d07",
+    factoryAddress: "0x47Ee213D373f60a0D6A8C58911400ce354406b57",
 
     TWENTY_FOUR_HOURS: 86400,
 }
